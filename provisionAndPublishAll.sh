@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-IMAGES="k8s/1.10.4 k8s/1.11.0 k8s-multus/1.10.4 k8s-multus/1.11.1 os-3.10 os-3.10-crio os-3.10-multus"
+IMAGES="os-3.11"
 LOG=`pwd`/log.txt
 
 echo
@@ -27,7 +27,7 @@ do
     date | tee -a $LOG
     echo "building $IMAGE" | tee -a $LOG
     {
-        (cd $IMAGE && ./provision.sh && ./publish.sh)
+        (cd $IMAGE && ./provision.sh )
     } 2>&1 | tee -a $LOG | grep -i -e 'The push refers to' -e 'latest: digest:'
     printf "\n\n\n" >> $LOG
 done
